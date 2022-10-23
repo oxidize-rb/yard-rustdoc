@@ -1,0 +1,51 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class IntegrationTest < Minitest::Test
+  def setup
+    super
+    parse_example
+  end
+
+  def test_class_can_be_renamed
+    assert_defined("Example::Renamed")
+  end
+
+  def test_method_can_be_renamed
+    assert_defined("Example::Foo#renamed")
+  end
+
+  def test_only_tagged_code_is_documented
+    assert_defined("Example::Foo.new")
+    assert_defined("Example::Foo#bar")
+    refute_defined("Example::Foo#secret")
+    refute_defined("Example::Secret")
+  end
+
+  def test_params_are_extracted_from_def
+    foo_bar = YARD::Registry.at("Example::Foo#bar")
+    params = foo_bar.parameters.to_h
+    expected = {
+      "req" => nil,
+      "opt" => "[]",
+      "*args" => nil,
+      "reqkw:" => nil,
+      "optkw:" => "nil",
+      "**kwargs" => nil,
+      "&block" => nil
+    }
+
+    assert_equal(expected, params)
+  end
+
+  private
+
+  def assert_defined(id)
+    refute_nil(YARD::Registry.at(id), "#{id} should be defined")
+  end
+
+  def refute_defined(id)
+    assert_nil(YARD::Registry.at(id), "#{id} should not exist")
+  end
+end

@@ -1,0 +1,38 @@
+require "rake/testtask"
+require "rake/extensiontask"
+
+Rake::ExtensionTask.new("example") do |c|
+  c.lib_dir = "tmp"
+end
+
+namespace :doc do
+  task default: %i[rustdoc yard]
+
+  desc "Generate Yard documentation"
+  task :yard do
+    run("bundle exec yard doc --plugin rustdoc -- lib rustdoc.json")
+  end
+
+  desc "Generate Rust documentation as JSON"
+  task :rustdoc do
+    target_dir = "tmp"
+    ext_dir = "ext"
+    run(<<~CMD)
+      cargo +nightly rustdoc \
+        --target-dir #{target_dir} \
+        -p #{ext_dir} \
+        -- \
+        -Zunstable-options --output-format json --document-private-items
+    CMD
+
+    run("cp tmp/doc/ext.json rustdoc.json")
+  end
+
+  def run(cmd)
+    system(cmd)
+    fail if $? != 0
+  end
+end
+
+task doc: "doc:default"
+task default: "doc:default"
