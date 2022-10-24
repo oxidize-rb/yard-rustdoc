@@ -3,7 +3,7 @@
 YARD plugin for documenting Magnus-based Rust gems. Supports writing class
 documentation on Struct and method documentation on Struct methods.
 
-**Note**: WIP, not relased.
+**Note**: WIP, not released.
 
 ## Installation
 
@@ -115,6 +115,6 @@ YARD's syntax differs from what Rustdoc expects. Linters you man want to disable
 
 ## Development
 
-Run tests with `rake`. The tests use a sample project
-(`test/samples/example-ext`), to regenerate the json doc, run `rake doc:rustdoc`
-form that directory. See the test project's Rakefile for details.
+Run tests with `rake`. The tests use a sample project located in
+`test/samples/example-ext`. To regenerate its json doc, run `rake doc:rustdoc`
+from that directory. See the test project's Rakefile for details.
