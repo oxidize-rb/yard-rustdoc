@@ -51,7 +51,7 @@ PLATFORMS
 DEPENDENCIES
   minitest (~> 5.0)
   rake (~> 13.0)
-  standard
+  standard (~> 1.9)
   yard-rustdoc!
 
 BUNDLED WITH

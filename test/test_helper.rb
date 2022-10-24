@@ -7,13 +7,13 @@ require "yard-rustdoc"
 require "minitest/autorun"
 
 class Minitest::Test
+  private
+
   def parse_example
     Dir.chdir("test/samples/example-ext") do
       parse_file("rustdoc.json")
     end
   end
-
-  private
 
   def parse_file(src)
     YARD::Registry.clear

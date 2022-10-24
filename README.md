@@ -112,3 +112,9 @@ YARD's syntax differs from what Rustdoc expects. Linters you man want to disable
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
 ```
+
+## Development
+
+Run tests with `rake`. The tests use a sample project
+(`test/samples/example-ext`), to regenerate the json doc, run `rake doc:rustdoc`
+form that directory. See the test project's Rakefile for details.
