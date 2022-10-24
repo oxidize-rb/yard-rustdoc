@@ -5,6 +5,8 @@ module YARD::Parser::Rustdoc
     class Base
       def initialize(rustdoc)
         @rustdoc = rustdoc
+        @name = nil
+        @parameters = []
       end
 
       def docstring
