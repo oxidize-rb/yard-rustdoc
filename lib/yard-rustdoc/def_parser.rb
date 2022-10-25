@@ -30,7 +30,7 @@ module YARD
             .child_nodes.first # Def
         rescue => e
           log.debug(e)
-          return log.error("failed to extract def node from #{@string}\n  #{e.message}")
+          return log.warn("failed to extract def node from '#{@string}'\n  #{e.message}")
         end
         @name = def_node.name.value
 
