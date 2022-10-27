@@ -3,14 +3,12 @@
 YARD plugin for documenting Magnus-based Rust gems. Supports writing class
 documentation on Struct and method documentation on Struct methods.
 
-**Note**: WIP, not released.
-
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'yard-rustdoc'
+gem "yard-rustdoc"
 ```
 
 Load the plugin through `--plugin rustdoc` (e.g. in your project's `.yardopts`).
@@ -111,6 +109,7 @@ YARD's syntax differs from what Rustdoc expects. Linters you man want to disable
 ```rust
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
+#![allow(rustdoc::bare_urls)]
 ```
 
 ## Development
