@@ -2,6 +2,8 @@
 
 module YARD::Parser::Rustdoc
   class Parser < YARD::Parser::Base
+    TOP_LEVEL_KINDS = ["struct", "enum"].freeze
+
     # This default constructor does nothing. The subclass is responsible for
     # storing the source contents and filename if they are required.
     # @param [String] source the source contents
@@ -28,7 +30,7 @@ module YARD::Parser::Rustdoc
 
       @rustdoc_json.each do |id, entry|
         next unless relevant_entry?(entry)
-        next unless entry["kind"] == "struct"
+        next unless TOP_LEVEL_KINDS.include?(entry["kind"])
 
         methods = entry
           .dig("inner", "impls")

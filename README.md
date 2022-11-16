@@ -1,7 +1,8 @@
 # YARD::Rustdoc
 
 YARD plugin for documenting Magnus-based Rust gems. Supports writing class
-documentation on Struct and method documentation on Struct methods.
+documentation on Struct and Enums, and method documentation on Struct and Enum
+methods.
 
 ## Installation
 

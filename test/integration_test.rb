@@ -19,6 +19,7 @@ class IntegrationTest < Minitest::Test
   def test_only_tagged_code_is_documented
     assert_defined("Example::Foo.new")
     assert_defined("Example::Foo#bar")
+    assert_defined("Example::SomeEnum")
     refute_defined("Example::Foo#secret")
     refute_defined("Example::Secret")
   end

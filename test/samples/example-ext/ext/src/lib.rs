@@ -36,6 +36,13 @@ impl Foo {
 }
 
 /// @yard
+#[magnus::wrap(class = "Example::SomeEnum")]
+enum SomeEnum {
+  _A,
+  _B,
+}
+
+/// @yard
 /// @rename Example::Renamed
 #[magnus::wrap(class = "Example::OriginalName")]
 struct OriginalName {}
@@ -53,5 +60,6 @@ fn init() -> Result<(), Error> {
     foo.define_method("baz", method!(Foo::baz, 0))?;
     foo.define_method("secret", method!(Foo::secret, 0))?;
     foo.define_method("with_rb_self", method!(Foo::with_rb_self, 0))?;
+    let _some_enum = example_ext.define_class("Example::SomeEnum", Default::default())?;
     Ok(())
 }
