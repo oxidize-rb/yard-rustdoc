@@ -71,12 +71,16 @@ impl Bar {
 }
 ```
 
-Defines `Foo::Bar#baz`:
+Defines `Foo::Bar#baz` and `#qux` -- instance method because the method's first
+argument is either `&self` or `rb_self`.
 
 ```rust
 impl Bar {
     /// @yard
     fn baz(&self) {}
+
+    /// @yard
+    fn qux(rb_self: Value) {}
 }
 ```
 

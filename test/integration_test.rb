@@ -23,6 +23,11 @@ class IntegrationTest < Minitest::Test
     refute_defined("Example::Secret")
   end
 
+  def test_rb_self_as_first_param_defines_instance_method
+    refute_defined("Example::Foo.with_rb_self")
+    assert_defined("Example::Foo#with_rb_self")
+  end
+
   def test_params_are_extracted_from_def
     foo_bar = YARD::Registry.at("Example::Foo#bar")
     params = foo_bar.parameters.to_h

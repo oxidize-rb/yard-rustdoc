@@ -29,6 +29,9 @@ impl Foo {
     /// @def renamed
     fn baz(&self) -> () {}
 
+    /// @yard
+    fn with_rb_self(rb_self: Value) -> Value { rb_self }
+
     fn secret(&self) -> () {}
 }
 
@@ -49,5 +52,6 @@ fn init() -> Result<(), Error> {
     foo.define_method("bar", method!(Foo::bar, -1))?;
     foo.define_method("baz", method!(Foo::baz, 0))?;
     foo.define_method("secret", method!(Foo::secret, 0))?;
+    foo.define_method("with_rb_self", method!(Foo::with_rb_self, 0))?;
     Ok(())
 }
