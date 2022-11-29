@@ -45,6 +45,11 @@ class IntegrationTest < Minitest::Test
     assert_equal(expected, params)
   end
 
+  def test_removes_atyard_tag
+    foobar = YARD::Registry.at("Example::Foo#bar")
+    refute(foobar.has_tag?("yard"), "@yard tag should be removed")
+  end
+
   private
 
   def assert_defined(id)

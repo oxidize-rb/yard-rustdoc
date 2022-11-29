@@ -10,7 +10,9 @@ module YARD::Parser::Rustdoc
       end
 
       def docstring
-        @rustdoc.fetch("docs")
+        @docstring ||= @rustdoc
+          .fetch("docs")
+          .gsub(/^\s*@yard\s*\n/m, "") # remove @yard line
       end
 
       def source
