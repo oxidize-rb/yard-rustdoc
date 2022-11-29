@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yard-rustdoc (0.2.0)
+    yard-rustdoc (0.3.0)
       syntax_tree (~> 4.0)
       yard (~> 0.9)
 
