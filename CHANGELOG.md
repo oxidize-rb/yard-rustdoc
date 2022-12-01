@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.1
+
+- Add `@module` tag to turn a struct into a module.
+
 ## v0.3.0
 
 - Remove the `@yard` annotation when sending to docstring to YARD.
