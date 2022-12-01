@@ -1,8 +1,8 @@
 PATH
   remote: ../../..
   specs:
-    yard-rustdoc (0.2.0)
-      syntax_tree (~> 4.0)
+    yard-rustdoc (0.3.0)
+      syntax_tree (~> 5.0)
       yard (~> 0.9)
 
 GEM
@@ -13,8 +13,8 @@ GEM
     rake-compiler (1.2.0)
       rake
     rb_sys (0.9.30)
-    syntax_tree (4.3.0)
-      prettier_print (>= 1.0.2)
+    syntax_tree (5.0.1)
+      prettier_print (>= 1.1.0)
     webrick (1.7.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
