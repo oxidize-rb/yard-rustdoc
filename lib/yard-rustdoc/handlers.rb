@@ -34,7 +34,7 @@ module YARD::Handlers
       statement_class(Statements::Struct)
 
       process do
-        obj = YARD::CodeObjects::ClassObject.new(:root, statement.name)
+        obj = statement.code_object_class.new(:root, statement.name)
         register(obj)
 
         push_state(namespace: obj) do

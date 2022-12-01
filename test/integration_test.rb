@@ -50,6 +50,11 @@ class IntegrationTest < Minitest::Test
     refute(foobar.has_tag?("yard"), "@yard tag should be removed")
   end
 
+  def test_struct_can_be_a_module
+    not_class = YARD::Registry.at("NotClass")
+    assert_equal(:module, not_class.type)
+  end
+
   private
 
   def assert_defined(id)

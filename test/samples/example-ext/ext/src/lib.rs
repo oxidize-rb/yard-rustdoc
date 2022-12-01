@@ -51,6 +51,11 @@ struct OriginalName {}
 #[magnus::wrap(class = "Example::Secret")]
 struct Secret {}
 
+/// @yard
+/// @module
+#[allow(unused)]
+struct NotClass {}
+
 #[magnus::init]
 fn init() -> Result<(), Error> {
     let example_ext = define_module("Example")?;

@@ -15,4 +15,5 @@ module YARD
   Tags::Library.define_tag("Tagging docblock for yard", :yard)
   Tags::Library.define_tag("Renaming class & methods", :rename)
   Tags::Library.define_tag("Specify a method name and args", :def)
+  Tags::Library.define_tag("Specify that a Struct should be a module (instead of class)", :module)
 end

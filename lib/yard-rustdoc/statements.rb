@@ -10,8 +10,7 @@ module YARD::Parser::Rustdoc
       end
 
       def docstring
-        @docstring ||= @rustdoc
-          .fetch("docs")
+        @docstring ||= rust_docstring
           .gsub(/^\s*@yard\s*\n/m, "") # remove @yard line
       end
 
@@ -80,6 +79,18 @@ module YARD::Parser::Rustdoc
 
         # Fallback to the struct's name
         @rustdoc.fetch("name")
+      end
+
+      def code_object_class
+        if rust_docstring.match?(/^@module\b/)
+          YARD::CodeObjects::ModuleObject
+        else
+          YARD::CodeObjects::ClassObject
+        end
+      end
+
+      def rust_docstring
+        @rustdoc.fetch("docs")
       end
     end
 
