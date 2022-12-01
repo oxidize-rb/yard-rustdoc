@@ -55,6 +55,10 @@ module YARD::Parser::Rustdoc
       def line_index_range
         (@rustdoc.dig("span", "begin", 0) - 1)..@rustdoc.dig("span", "end", 0)
       end
+
+      def rust_docstring
+        @rustdoc.fetch("docs")
+      end
     end
 
     class Struct < Base
@@ -87,10 +91,6 @@ module YARD::Parser::Rustdoc
         else
           YARD::CodeObjects::ClassObject
         end
-      end
-
-      def rust_docstring
-        @rustdoc.fetch("docs")
       end
     end
 
