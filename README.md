@@ -68,7 +68,7 @@ Defines `Foo::Bar.new` -- class method because the first argument isn't `self`.
 impl Bar {
     /// @yard
     /// @return [Foo::Bar]
-    fn build() -> Self {}
+    fn new() -> Self {}
 }
 ```
 
