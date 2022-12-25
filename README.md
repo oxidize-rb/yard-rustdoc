@@ -58,7 +58,7 @@ The `@rename` tag renames the class to `Foo::Baz`.
 
 ```rust
 /// @yard
-/// @remame Foo::Baz
+/// @rename Foo::Baz
 pub struct InnerName { }
 ```
 
@@ -109,7 +109,7 @@ impl Bar {
 
 #### Tips
 
-YARD's syntax differs from what Rustdoc expects. Linters you man want to disable:
+YARD's syntax differs from what Rustdoc expects. Linters you might want to disable:
 
 ```rust
 #![allow(rustdoc::broken_intra_doc_links)]
