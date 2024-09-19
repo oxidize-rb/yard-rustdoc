@@ -30,11 +30,17 @@ module YARD::Parser::Rustdoc
 
       @rustdoc_json.each do |id, entry|
         next unless relevant_entry?(entry)
-        next unless TOP_LEVEL_KINDS.include?(entry["kind"])
 
-        methods = entry
-          .dig("inner", "impls")
-          .flat_map { |impl_id| @rustdoc_json.dig(impl_id, "inner", "items") }
+        # "inner" is a Rust enum serialized with serde, resulting in a
+        # { "variant": { ...variant fields... } } structure.
+        # See https://github.com/rust-lang/rust/blob/f79a912d9edc3ad4db910c0e93672ed5c65133fa/src/rustdoc-json-types/lib.rs#L104
+        kind, inner = entry["inner"].first
+
+        next unless TOP_LEVEL_KINDS.include?(kind)
+
+        methods = inner
+          .fetch("impls")
+          .flat_map { |impl_id| @rustdoc_json.dig(impl_id, "inner", "impl", "items") }
           .filter_map do |method_id|
             method_entry = @rustdoc_json.fetch(method_id)
             next unless relevant_entry?(method_entry)

@@ -102,7 +102,7 @@ module YARD::Parser::Rustdoc
       end
 
       def scope
-        first_arg = @rustdoc.dig("inner", "decl", "inputs", 0, 0)
+        first_arg = @rustdoc.dig("inner", "function", "decl", "inputs", 0, 0)
         if first_arg == "self" || first_arg == "rb_self"
           :instance
         else
