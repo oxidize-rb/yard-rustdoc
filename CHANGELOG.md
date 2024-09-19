@@ -7,6 +7,8 @@
 - Look at 2nd argument when checking for `rb_self` to infer the scope
   (class/instance) method (in addition to the 1st arg).
   This is because magnus can inject a `magnus::Ruby` as the 1st argument.
+- Ensure nested constants (`A::B`) show up in YARD's class list,
+  regardless of which order they're in rustdoc's JSON.
 
 ## v0.3.2
 

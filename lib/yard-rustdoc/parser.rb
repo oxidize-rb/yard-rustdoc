@@ -51,6 +51,9 @@ module YARD::Parser::Rustdoc
         @entries << Statements::Struct.new(entry, methods)
       end
 
+      # Ensure Foo comes before Foo::Bar
+      @entries.sort_by!(&:name)
+
       self
     end
 
