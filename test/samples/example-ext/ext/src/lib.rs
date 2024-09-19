@@ -1,7 +1,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
 
-use magnus::{define_module, function, method, prelude::*, Error, Value};
+use magnus::{define_module, function, method, prelude::*, Error, Ruby, Value};
 
 /// @yard
 #[magnus::wrap(class = "Example::Foo")]
@@ -30,7 +30,19 @@ impl Foo {
     fn baz(&self) -> () {}
 
     /// @yard
-    fn with_rb_self(rb_self: Value) -> Value { rb_self }
+    fn with_rb_self(rb_self: Value) -> Value {
+        rb_self
+    }
+
+    /// @yard
+    fn with_ruby_and_rb_self(_ruby: Ruby, rb_self: Value) -> Value {
+        rb_self
+    }
+
+    /// @yard
+    fn with_ruby_and_self(&self, _ruby: Ruby) -> Value {
+        self
+    }
 
     fn secret(&self) -> () {}
 }
@@ -38,8 +50,8 @@ impl Foo {
 /// @yard
 #[magnus::wrap(class = "Example::SomeEnum")]
 enum SomeEnum {
-  _A,
-  _B,
+    _A,
+    _B,
 }
 
 /// @yard
@@ -65,6 +77,11 @@ fn init() -> Result<(), Error> {
     foo.define_method("baz", method!(Foo::baz, 0))?;
     foo.define_method("secret", method!(Foo::secret, 0))?;
     foo.define_method("with_rb_self", method!(Foo::with_rb_self, 0))?;
+    foo.define_method("with_ruby_and_self", method!(Foo::with_ruby_and_self, 0))?;
+    foo.define_method(
+        "with_ruby_and_rb_self",
+        method!(Foo::with_ruby_and_rb_self, 0),
+    )?;
     let _some_enum = example_ext.define_class("Example::SomeEnum", Default::default())?;
     Ok(())
 }

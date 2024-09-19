@@ -4,6 +4,9 @@
 
 - Adjust Rustdoc's json parsing for format v26.
   See https://github.com/rust-lang/rust/pull/111427 for the breaking change.
+- Look at 2nd argument when checking for `rb_self` to infer the scope
+  (class/instance) method (in addition to the 1st arg).
+  This is because magnus can inject a `magnus::Ruby` as the 1st argument.
 
 ## v0.3.2
 

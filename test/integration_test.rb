@@ -29,6 +29,14 @@ class IntegrationTest < Minitest::Test
     assert_defined("Example::Foo#with_rb_self")
   end
 
+  def test_self_and_rb_self_works_with_ruby_arg
+    refute_defined("Example::Foo.with_ruby_and_self")
+    assert_defined("Example::Foo#with_ruby_and_self")
+
+    refute_defined("Example::Foo.with_ruby_and_rb_self")
+    assert_defined("Example::Foo#with_ruby_and_rb_self")
+  end
+
   def test_params_are_extracted_from_def
     foo_bar = YARD::Registry.at("Example::Foo#bar")
     params = foo_bar.parameters.to_h
