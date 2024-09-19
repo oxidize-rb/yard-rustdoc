@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.4.0
 
 - Adjust Rustdoc's json parsing for format v26.
   See https://github.com/rust-lang/rust/pull/111427 for the breaking change.
