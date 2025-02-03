@@ -1,8 +1,8 @@
 require "rake/testtask"
-require "rake/extensiontask"
+require "rb_sys/extensiontask"
 
-Rake::ExtensionTask.new("example") do |c|
-  c.lib_dir = "tmp"
+RbSys::ExtensionTask.new("example") do |ext|
+  ext.lib_dir = "ext"
 end
 
 namespace :doc do
@@ -16,16 +16,16 @@ namespace :doc do
   desc "Generate Rust documentation as JSON"
   task :rustdoc do
     target_dir = "tmp"
-    ext_dir = "ext"
+    ext_name = "example"
     run(<<~CMD)
       cargo +nightly rustdoc \
         --target-dir #{target_dir} \
-        -p #{ext_dir} \
+        -p #{ext_name} \
         -- \
         -Zunstable-options --output-format json --document-private-items
     CMD
 
-    run("cp tmp/doc/ext.json rustdoc.json")
+    run("cp #{rustdoc_path} rustdoc.json")
   end
 
   def run(cmd)

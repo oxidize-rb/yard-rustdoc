@@ -30,9 +30,6 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_self_and_rb_self_works_with_ruby_arg
-    refute_defined("Example::Foo.with_ruby_and_self")
-    assert_defined("Example::Foo#with_ruby_and_self")
-
     refute_defined("Example::Foo.with_ruby_and_rb_self")
     assert_defined("Example::Foo#with_ruby_and_rb_self")
   end

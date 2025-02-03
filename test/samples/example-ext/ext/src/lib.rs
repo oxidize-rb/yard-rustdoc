@@ -1,7 +1,7 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
 
-use magnus::{define_module, function, method, prelude::*, Error, Ruby, Value};
+use magnus::{define_module, function, method, prelude::*, value, Error, Ruby, Value};
 
 /// @yard
 #[magnus::wrap(class = "Example::Foo")]
@@ -23,11 +23,11 @@ impl Foo {
     /// @param optkw [T]
     /// @param kwargs [T]
     /// @return [nil]
-    fn bar(&self, _args: &[Value]) -> () {}
+    fn bar(&self, _args: &[Value]) {}
 
     /// @yard
     /// @def renamed
-    fn baz(&self) -> () {}
+    fn baz(&self) {}
 
     /// @yard
     fn with_rb_self(rb_self: Value) -> Value {
@@ -35,13 +35,8 @@ impl Foo {
     }
 
     /// @yard
-    fn with_ruby_and_rb_self(_ruby: Ruby, rb_self: Value) -> Value {
+    fn with_ruby_and_rb_self(_ruby: &Ruby, rb_self: Value) -> Value {
         rb_self
-    }
-
-    /// @yard
-    fn with_ruby_and_self(&self, _ruby: Ruby) -> Value {
-        self
     }
 
     fn secret(&self) -> () {}
@@ -69,19 +64,18 @@ struct Secret {}
 struct NotClass {}
 
 #[magnus::init]
-fn init() -> Result<(), Error> {
+fn init(ruby: &Ruby) -> Result<(), Error> {
     let example_ext = define_module("Example")?;
-    let foo = example_ext.define_class("Example::Foo", Default::default())?;
+    let foo = example_ext.define_class("Example::Foo", ruby.class_object())?;
     foo.define_singleton_method("new", function!(Foo::new, 0))?;
     foo.define_method("bar", method!(Foo::bar, -1))?;
     foo.define_method("baz", method!(Foo::baz, 0))?;
     foo.define_method("secret", method!(Foo::secret, 0))?;
     foo.define_method("with_rb_self", method!(Foo::with_rb_self, 0))?;
-    foo.define_method("with_ruby_and_self", method!(Foo::with_ruby_and_self, 0))?;
     foo.define_method(
         "with_ruby_and_rb_self",
         method!(Foo::with_ruby_and_rb_self, 0),
     )?;
-    let _some_enum = example_ext.define_class("Example::SomeEnum", Default::default())?;
+    let _some_enum = example_ext.define_class("Example::SomeEnum", ruby.class_object())?;
     Ok(())
 }

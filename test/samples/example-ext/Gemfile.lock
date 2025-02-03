@@ -1,8 +1,8 @@
 PATH
   remote: ../../..
   specs:
-    yard-rustdoc (0.3.2)
-      syntax_tree (~> 5.0)
+    yard-rustdoc (0.4.0)
+      syntax_tree (~> 6.0)
       yard (~> 0.9)
 
 GEM
@@ -10,16 +10,19 @@ GEM
   specs:
     prettier_print (1.2.1)
     rake (13.2.1)
-    rake-compiler (1.2.7)
+    rake-compiler (1.2.9)
       rake
-    rb_sys (0.9.102)
-    syntax_tree (5.3.0)
+    rake-compiler-dock (1.9.1)
+    rb_sys (0.9.110)
+      rake-compiler-dock (= 1.9.1)
+    syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
     yard (0.9.37)
 
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-23
+  arm64-darwin-24
 
 DEPENDENCIES
   rake-compiler (~> 1.2.0)
