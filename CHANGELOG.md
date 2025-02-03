@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.4.1
+
 - Adjust Rustdoc's json parsing for format v39.
 
 ## v0.4.0
