@@ -9,9 +9,9 @@ require "minitest/autorun"
 class Minitest::Test
   private
 
-  def parse_example
+  def parse_example(version)
     Dir.chdir("test/samples/example-ext") do
-      parse_file("rustdoc.json")
+      parse_file("rustdoc/#{version}.json")
     end
   end
 

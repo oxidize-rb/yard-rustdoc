@@ -15,17 +15,27 @@ namespace :doc do
 
   desc "Generate Rust documentation as JSON"
   task :rustdoc do
-    target_dir = "tmp"
+    require "fileutils"
+    require "json"
+
     ext_name = "example"
+    nightly = "+nightly"
+    nightly += "-#{ENV["NIGHTLY_VERSION"]}" if ENV["NIGHTLY_VERSION"]
+
     run(<<~CMD)
-      cargo +nightly rustdoc \
-        --target-dir #{target_dir} \
+      cargo #{nightly} rustdoc \
+        --target-dir tmp \
         -p #{ext_name} \
         -- \
         -Zunstable-options --output-format json --document-private-items
     CMD
 
+    rustdoc_path = "tmp/doc/#{ext_name}.json"
+    version = JSON.load_file(rustdoc_path).fetch("format_version")
+
+    FileUtils.mkdir_p("rustdoc")
     run("cp #{rustdoc_path} rustdoc.json")
+    run("cp #{rustdoc_path} rustdoc/v#{version}.json")
   end
 
   def run(cmd)

@@ -104,8 +104,13 @@ module YARD::Parser::Rustdoc
       # Infers the scope (instance vs class) based on the usage of "self" or
       # "rb_self" as an arg name.
       def scope
-        arg_names = @rustdoc
-          .dig("inner", "function", "decl", "inputs")
+        inputs =
+          # JSON rustdoc FORMAT_VERSION < 34
+          @rustdoc.dig("inner", "function", "decl", "inputs") ||
+          # >= 34
+          @rustdoc.dig("inner", "function", "sig", "inputs")
+
+        arg_names = inputs
           .map(&:first)
           .slice(0, 2) # Magnus may inject a Ruby handle as arg0, hence we check 2 args
 

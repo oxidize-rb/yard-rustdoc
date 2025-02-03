@@ -3,20 +3,26 @@
 require "test_helper"
 
 class IntegrationTest < Minitest::Test
-  def setup
-    super
-    parse_example
+  SUPPORTED_VERSIONS = ["v33", "v39"].freeze
+
+  def self.test(name, &block)
+    SUPPORTED_VERSIONS.each do |version|
+      define_method(:"test_#{name}_#{version}") do
+        parse_example(version)
+        instance_exec(&block)
+      end
+    end
   end
 
-  def test_class_can_be_renamed
+  test("class_can_be_renamed") do
     assert_defined("Example::Renamed")
   end
 
-  def test_method_can_be_renamed
+  test("method_can_be_renamed") do
     assert_defined("Example::Foo#renamed")
   end
 
-  def test_only_tagged_code_is_documented
+  test("only_tagged_code_is_documented") do
     assert_defined("Example::Foo.new")
     assert_defined("Example::Foo#bar")
     assert_defined("Example::SomeEnum")
@@ -24,17 +30,17 @@ class IntegrationTest < Minitest::Test
     refute_defined("Example::Secret")
   end
 
-  def test_rb_self_as_first_param_defines_instance_method
+  test("rb_self_as_first_param_defines_instance_method") do
     refute_defined("Example::Foo.with_rb_self")
     assert_defined("Example::Foo#with_rb_self")
   end
 
-  def test_self_and_rb_self_works_with_ruby_arg
+  test("self_works_with_ruby_arg") do
     refute_defined("Example::Foo.with_ruby_and_rb_self")
     assert_defined("Example::Foo#with_ruby_and_rb_self")
   end
 
-  def test_params_are_extracted_from_def
+  test("params_are_extracted_from_def") do
     foo_bar = YARD::Registry.at("Example::Foo#bar")
     params = foo_bar.parameters.to_h
     expected = {
@@ -50,12 +56,12 @@ class IntegrationTest < Minitest::Test
     assert_equal(expected, params)
   end
 
-  def test_removes_atyard_tag
+  test("removes_atyard_tag") do
     foobar = YARD::Registry.at("Example::Foo#bar")
     refute(foobar.has_tag?("yard"), "@yard tag should be removed")
   end
 
-  def test_struct_can_be_a_module
+  test("struct_can_be_a_module") do
     not_class = YARD::Registry.at("NotClass")
     assert_equal(:module, not_class.type)
   end

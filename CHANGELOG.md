@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Adjust Rustdoc's json parsing for format v39.
+
 ## v0.4.0
 
 - Adjust Rustdoc's json parsing for format v26.

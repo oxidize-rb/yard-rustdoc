@@ -40,9 +40,11 @@ module YARD::Parser::Rustdoc
 
         methods = inner
           .fetch("impls")
-          .flat_map { |impl_id| @rustdoc_json.dig(impl_id, "inner", "impl", "items") }
+          .flat_map do |impl_id|
+            @rustdoc_json.dig(impl_id.to_s, "inner", "impl", "items")
+          end
           .filter_map do |method_id|
-            method_entry = @rustdoc_json.fetch(method_id)
+            method_entry = @rustdoc_json.fetch(method_id.to_s)
             next unless relevant_entry?(method_entry)
 
             Statements::Method.new(method_entry)
