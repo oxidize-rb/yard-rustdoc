@@ -1,7 +1,7 @@
 PATH
   remote: ../../..
   specs:
-    yard-rustdoc (0.4.0)
+    yard-rustdoc (0.4.1)
       syntax_tree (~> 6.0)
       yard (~> 0.9)
 
@@ -9,13 +9,13 @@ GEM
   remote: https://rubygems.org/
   specs:
     prettier_print (1.2.1)
-    rake (13.2.1)
+    rake (13.3.1)
     rake-compiler (1.2.9)
       rake
     rake-compiler-dock (1.9.1)
-    rb_sys (0.9.110)
+    rb_sys (0.9.117)
       rake-compiler-dock (= 1.9.1)
-    syntax_tree (6.2.0)
+    syntax_tree (6.3.0)
       prettier_print (>= 1.2.0)
     yard (0.9.37)
 
