@@ -73,6 +73,8 @@ module YARD::Parser::Rustdoc
         return $1.strip if docstring =~ /^@rename\s*(.+)/
 
         @rustdoc["attrs"].each do |attr|
+          attr = attr["other"] if attr.is_a?(Hash) # JSON rustdoc FORMAT_VERSION v54
+
           next unless attr.include?("magnus")
 
           # Extract class name from magnus attrs that define classes such as:
